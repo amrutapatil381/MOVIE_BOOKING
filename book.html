@@ -1,0 +1,42 @@
+<!-- book.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Tickets</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        function updateSelectedSeats() {
+            let selectedSeats = [];
+            document.querySelectorAll('input[name="seats"]:checked').forEach((checkbox) => {
+                selectedSeats.push(checkbox.value);
+            });
+            document.getElementById('selectedSeatsInput').value = selectedSeats.join(",");
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Book Tickets for {{ movie[1] }}</h2>
+        <p>Show Timing: <strong>{{ movie[2] }}</strong></p>
+        <p>Available Seats: <strong>{{ movie[3] }}</strong></p>
+
+        <form method="POST">
+            <h3>Select Your Seats:</h3>
+            <div class="seat-container">
+                {% for seat in range(1, movie[3] + 1) %}
+                    <label class="seat">
+                        <input type="checkbox" name="seats" value="{{ seat }}" onchange="updateSelectedSeats()"> 
+                        <span>{{ seat }}</span>
+                    </label>
+                {% endfor %}
+            </div>
+            <input type="hidden" id="selectedSeatsInput" name="selectedSeats">
+            <button type="submit" class="btn">Confirm Booking</button>
+        </form>
+
+        <a href="{{ url_for('home') }}">Back to Home</a>
+    </div>
+</body>
+</html>

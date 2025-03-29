@@ -1,0 +1,27 @@
+<!-- receipt.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Receipt</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+        <h2 class="text-2xl font-bold text-center mb-4">Booking Receipt</h2>
+        <p class="text-center text-gray-600"><strong>Movie:</strong> {{ movie[1] }}</p>
+        <p class="text-center text-gray-600"><strong>Show Timing:</strong> {{ movie[2] }}</p>
+        <p class="text-center text-gray-600"><strong>Booked Seats:</strong> {{ seats }}</p>
+        <p class="text-center text-gray-600"><strong>Booked by:</strong> {{ session['user'] }}</p>
+        
+        <button onclick="window.print()" 
+                class="mt-4 w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">
+            Print Receipt
+        </button>
+        
+        <a href="{{ url_for('home') }}" 
+           class="block text-center mt-4 text-blue-500 hover:underline">Back to Home</a>
+    </div>
+</body>
+</html>

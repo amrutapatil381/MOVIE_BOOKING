@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Ticket Booking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="bg-gray-100 text-gray-900">
+    <div class="max-w-4xl mx-auto p-6">
+        <h1 class="text-3xl font-bold text-center">Welcome to Movie Ticket Booking</h1>
+        
+        {% if session['user'] %}
+            <p class="text-right mt-4">Logged in as: <strong>{{ session['user'] }}</strong>
+                <a href="{{ url_for('logout') }}" class="text-red-500 hover:underline ml-2">Logout</a>
+            </p>
+        {% else %}
+            <div class="text-center mt-4">
+                <a href="{{ url_for('login') }}" class="text-blue-500 hover:underline">Login</a> |
+                <a href="{{ url_for('register') }}" class="text-blue-500 hover:underline">Register</a>
+            </div>
+        {% endif %}
+
+        <h2 class="text-xl font-semibold mt-6">Available Movies</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+            {% for movie in movies %}
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <h3 class="text-lg font-semibold">{{ movie[1] }}</h3>
+                    <p>Show Timing: {{ movie[2] }}</p>
+                    <p>Seats Available: {{ movie[3] }}</p>
+                    <a href="{{ url_for('book', movie_id=movie[0]) }}" 
+                       class="block text-center bg-green-500 text-white py-2 mt-2 rounded-md hover:bg-green-600">
+                        Book Now
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
